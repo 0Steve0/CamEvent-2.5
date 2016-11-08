@@ -1,92 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/background">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/textViewBuilding"
-        android:id="@+id/textViewBuilding" />
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinnerBuilding" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/textViewStart"
-        android:id="@+id/textViewStart" />
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="260dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="60dp">
+
+        <com.sackcentury.shinebuttonlib.ShineButton
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:id="@+id/location_button"
+            app:btn_color="@android:color/darker_gray"
+            app:btn_fill_color="#FF6666"
+            app:allow_random_color="true"
+            app:siShape="@raw/location"/>
+
+        <Spinner
+            android:layout_width="210dp"
+            android:layout_height="50dp"
+            android:id="@+id/spinnerBuilding"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="260dp"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="60dp">
+
+        <com.sackcentury.shinebuttonlib.ShineButton
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:id="@+id/time_button"
+            app:btn_color="@android:color/darker_gray"
+            app:btn_fill_color="#FF6666"
+            app:allow_random_color="true"
+            app:siShape="@raw/time"
+            app:enable_flashing="true"
+            app:shine_size="15dp"/>
 
         <EditText
             android:id="@+id/etxt_fromdate"
-            android:layout_width="129dp"
-            android:layout_height="87dp"
-            android:hint="Start Date" />
-
-        <EditText
-            android:id="@+id/etxt_fromtime"
-            android:layout_width="128dp"
-            android:layout_height="87dp"
+            android:layout_width="210dp"
+            android:layout_height="match_parent"
             android:hint="Start Time" />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/textViewEnd"
-        android:id="@+id/textViewEnd" />
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="115dp"
+        android:layout_width="260dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp">
 
-        <EditText
-            android:id="@+id/etxt_todate"
-            android:layout_width="128dp"
-            android:layout_height="87dp"
-            android:hint="End Date" />
+        <com.sackcentury.shinebuttonlib.ShineButton
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:id="@+id/keyWord_button"
+            app:btn_color="@android:color/darker_gray"
+            app:btn_fill_color="#F44336"
+            app:allow_random_color="true"
+            app:enable_flashing="true"
+            app:shine_size="15dp"
+            app:siShape="@raw/word"/>
 
         <EditText
             android:id="@+id/etxt_totime"
-            android:layout_width="128dp"
-            android:layout_height="87dp"
-            android:hint="End Time" />
+            android:layout_width="210dp"
+            android:layout_height="match_parent"
+            android:hint="Key Word"
+            android:singleLine="true"
+            android:layout_gravity="top" />
     </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/textViewType"
-        android:id="@+id/textViewType" />
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinnerType" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/search"
-        android:id="@+id/button"
-        android:layout_gravity="center_horizontal"
-        android:onClick="search" />
+    <LinearLayout
+        android:layout_width="260dp"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp">
+        <com.sackcentury.shinebuttonlib.ShineButton
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:id="@+id/search_shinebutton"
+            app:btn_color="@android:color/darker_gray"
+            app:btn_fill_color="#F44336"
+            app:siShape="@raw/send"
+            android:layout_gravity="center_horizontal"
+            />
+        <Button
+            android:id="@+id/search_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="search"
+            android:hint="Search"/>
+    </LinearLayout>
 
 </LinearLayout>
