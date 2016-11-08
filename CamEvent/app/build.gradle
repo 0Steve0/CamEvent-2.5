@@ -10,23 +10,31 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+
     }
     buildTypes {
         release {
-            minifyEnabled false
+            shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled true
+            useProguard false
         }
     }
 }
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
+    compile files('C:/Users/lei/Documents/GitHub/CamEvent-2.5/CamEvent/lib/libs/org.json-20120521.jar')
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.google.android.gms:play-services:9.4.0'
     compile 'com.android.support:design:24.2.1'
     compile 'com.google.android.gms:play-services-ads:9.4.0'
     compile 'com.google.android.gms:play-services-auth:9.4.0'
     compile 'com.google.android.gms:play-services-gcm:9.4.0'
-    compile files('C:/Users/sound/AndroidStudioProjects/CamEvent/lib/libs/org.json-20120521.jar')
     compile 'org.jetbrains:annotations-java5:15.0'
+    compile project(':shinebuttonlib')
+
 }
