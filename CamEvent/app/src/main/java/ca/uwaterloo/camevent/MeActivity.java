@@ -1,34 +1,46 @@
 package ca.uwaterloo.camevent;
 
 import android.content.Intent;
-import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+
+import layout.SubPage01;
 
 //import ca.uwaterloo.maptest.R;
 
-public class MeActivity extends AppCompatActivity {
+public class MeActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -42,7 +54,10 @@ public class MeActivity extends AppCompatActivity {
 
     /**
      * The {@link ViewPager} that will host the section contents.
+     *
      */
+    NavigationView navigationView = null;
+    Toolbar toolbar = null;
     private ViewPager mViewPager;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
@@ -52,18 +67,18 @@ public class MeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_me);
 
+        SubPage01 fragment = new SubPage01();
+        android.support.v4.app.FragmentTransaction fragmentTransaction =
+                getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
-        toolbar.setNavigationIcon(R.drawable.back);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToMapActivity();
-                finish();
-            }
-        });
 
 
 
@@ -87,8 +102,33 @@ public class MeActivity extends AppCompatActivity {
             }
         });
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        //How to change elements in the header programatically
+        View headerView = navigationView.getHeaderView(0);
+        TextView emailText = (TextView) headerView.findViewById(R.id.email);
+        emailText.setText("newemail@email.com");
+
+        navigationView.setNavigationItemSelectedListener(this);
+
     }
-//new add:2016/10/27
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+    //new add:2016/10/27
     private void goToMapActivity() {
         //jump to second activity
         Intent intent = new Intent(this, MapsActivity.class);
@@ -97,6 +137,11 @@ public class MeActivity extends AppCompatActivity {
     private void goToSearchActivity() {
         //jump to second activity
         Intent intent = new Intent(this, SearchActivity.class);
+        startActivity(intent);
+    }
+    private void goToPostActivity() {
+        //jump to second activity
+        Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
 
@@ -108,6 +153,7 @@ public class MeActivity extends AppCompatActivity {
 
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -125,7 +171,25 @@ public class MeActivity extends AppCompatActivity {
             goToSearchActivity();
             finish();
         }
+        if(id==R.id.post){
+            goToPostActivity();
+            finish();
+        }
+        if(id==R.id.nav_map){
+            goToMapActivity();
+            finish();
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     /**
@@ -170,14 +234,14 @@ public class MeActivity extends AppCompatActivity {
                         items
                 );
                 listView.setAdapter(listviewAdapter);
-                Button btnPost=(Button)rootView.findViewById(R.id.btn_post);
+                /*ImageButton btnPost=(ImageButton) rootView.findViewById(R.id.btn_post);
                 btnPost.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent=new Intent(v.getContext(),RegisterActivity.class);
                         startActivity(intent);
                     }
-                });
+                });*/
 
 
 
