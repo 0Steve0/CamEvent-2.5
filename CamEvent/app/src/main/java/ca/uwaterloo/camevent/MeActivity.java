@@ -7,9 +7,12 @@ import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
@@ -25,6 +28,7 @@ import android.view.ViewGroup;
 
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -61,6 +65,7 @@ public class MeActivity extends AppCompatActivity
     private ViewPager mViewPager;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+    private SwitchCompat mThemeSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,11 +118,31 @@ public class MeActivity extends AppCompatActivity
 
         //How to change elements in the header programatically
         View headerView = navigationView.getHeaderView(0);
-        TextView emailText = (TextView) headerView.findViewById(R.id.email);
-        emailText.setText("newemail@email.com");
+        //TextView emailText = (TextView) headerView.findViewById(R.id.email);
+        //emailText.setText("newemail@email.com");
 
         navigationView.setNavigationItemSelectedListener(this);
+        initNavView();
 
+    }
+    private void initNavView(){
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+
+        MenuItem item = navigationView.getMenu().findItem(R.id.nav_theme);
+        mThemeSwitch = (SwitchCompat) MenuItemCompat.getActionView(item).findViewById(R.id.switch_compat);
+
+        mThemeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                mThemeSwitch.setChecked(isChecked);
+                if (isChecked) {
+                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                } else {
+                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+            }
+        });
     }
     @Override
     public void onBackPressed() {
@@ -141,7 +166,7 @@ public class MeActivity extends AppCompatActivity
     }
     private void goToPostActivity() {
         //jump to second activity
-        Intent intent = new Intent(this, RegisterActivity.class);
+        Intent intent = new Intent(this, PostActivity.class);
         startActivity(intent);
     }
 
@@ -187,6 +212,30 @@ public class MeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        Fragment fragment=null;
+        if (id == R.id.nav_camara) {
+
+
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
+        }else if(id==R.id.nav_theme){
+            //fragment=new Theme_Fragment();
+
+        }
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, fragment).commit();
+
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -289,6 +338,7 @@ public class MeActivity extends AppCompatActivity
 
         }
     }
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
